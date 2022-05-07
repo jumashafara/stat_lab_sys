@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+.btn {
+    @apply text-white rounded-md p-2 first-letter:first-line:hover:translate-y-0.5
+            hover:ring-2 hover:ring-offset-1 shadow-md;
+}
+
+.btn-danger {
+    @apply bg-red-600  hover:ring-red-400 hover:bg-red-800
+}
+.btn-success {
+    @apply bg-green-600  hover:ring-green-400 hover:bg-green-800
+            
+}
+@tailwind utilities;

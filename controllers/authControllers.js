@@ -3,38 +3,40 @@ const jwt = require('jsonwebtoken')
 const { handle } = require("express/lib/application")
 //test
 const path = require('path')
+const Computer = require("../models/Computer")
 
 const handleErrors = (err) => {
     console.log(err.message, err.code)
-    let errors = {email: '', password: ''}
+
+    let user_errors = {email: '', password: ''}
 
     //incorrect email
     if(err.message === 'Incorrect email'){
-        errors.email = 'that email is not registered'
+        user_errors.email = 'that email is not registered'
     }
 
     //incorrect password
     if(err.message === 'Incorrect password'){
-        errors.password = 'incorrect password'
+        user_errors.password = 'incorrect password'
     }
 
     //duplicate error
     if(err.code === 11000){
-        errors.email = 'That email is already registerd'
-        return errors
+        user_errors.email = 'That email is already registerd'
     }
 
-    //validation errors
+    //validation user_errors
     if(err.message.includes('user validation failed')){
-        //populate the errors object
-        Object.values(err.errors).forEach(({properties}) => errors[properties.path] = properties.message)
+        //populate the user_errors object
+        Object.values(err.user_errors).forEach(({properties}) => user_errors[properties.path] = properties.message)
     }
-    return errors
+
+    return user_errors
 
 }
 
 
-//function to create tokens 
+//function to create tokens
 const max_age = 3*24*60*60
 const createToken = (id) => jwt.sign({id}, 'chappie', {expiresIn: max_age})
 
@@ -42,7 +44,6 @@ const createToken = (id) => jwt.sign({id}, 'chappie', {expiresIn: max_age})
 //controller for logging
 module.exports.login_get = (req, res) => {
    res.render('login')
-  
 }
 
 //controller for login post request
@@ -53,11 +54,12 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password)
         const token = createToken(user._id)
         res.cookie('jwt', token, {httpOnly: true, maxAge: max_age*1000})
-        res.status(200).json({user: user._id, name: user.name})
+        res.status(200).json({user: user._id, name: user.name, email: user.email, computer_id: user.computer_id})
 
     }catch(err){
-        const errors = handleErrors(err)
-        res.status(400).json({errors})
+        const user_errors = handleErrors(err)
+        console.log(user_errors)
+        res.status(400).json({user_errors: user_errors})
     }
 }
 
@@ -67,7 +69,7 @@ module.exports.logout_get = (req, res) => {
 }
 
 //SIGN UP SECTION
-//controller for sign up get request 
+//controller for sign up get request
 module.exports.signup_get = (req, res) => {
     res.render('signup')
 }
@@ -81,11 +83,54 @@ module.exports.signup_post = async (req, res) => {
         const token = createToken(user._id)
         res.cookie('jwt', token, {httpOnly: true, maxAge: max_age*1000})
         res.status(200).json({user: user._id})
-    } 
-    catch(err){
-        const errors = handleErrors(err)
-        res.status(400).json({errors})
     }
-    
+    catch(err){
+        const user_errors = handleErrors(err)
+        res.status(400).json({user_errors})
+    }
+
 }
 
+module.exports.update_put = async (req, res) => {
+    const {email, key, value} = req.body
+    const user = await User.findOne({email})
+
+    try{
+        User.handleUpdate(email, key, value)
+        res.status(200).json({user: user._id, name: user.name, email: user.email, computer_id: user.computer_id})
+    }catch(err){
+        const user_errors = handleErrors(err)
+        res.status(400).json({user_errors})
+    }
+}
+
+//Expire user booking after 2 days
+Date.prototype.addDays = function (days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+const updater = async() => {
+    const users = await User.find()
+
+    users.forEach(async (user) => {
+        const open_day = user.booking_date
+
+        let current_date = new Date(`${new Date().toISOString()}`)
+
+       // let due_day = open_day
+        let due_day = new Date("2022-05-02T09:52:00.000Z")
+
+      //  due_day = open_day.addDays(2)
+
+        if(current_date > due_day){
+            await User.updateOne({_id: user._id}, {computer_id: ''})
+            await Computer.updateOne({booker_id: user._id}, {booker_id: ''})
+        }
+    })
+}
+
+setInterval(()=> {
+    updater()
+}, 1000)

@@ -13,4 +13,8 @@ route.get('/signup', authController.signup_get)
 
 route.post('/signup', authController.signup_post)
 
+route.put('/update_info', authController.update_put)
+
+route.delete('/delete')
+
 module.exports = route
