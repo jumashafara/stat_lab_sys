@@ -61,7 +61,7 @@ userSchema.statics.handleBooking = async function( email ){
             const first_free_comp_id = stringify(free_computers[0]._id)
             await this.updateOne({email}, {computer_id: first_free_comp_id, booking_date: Date.now()})
             await Computer.updateOne({_id: first_free_comp_id}, {booker_id: user_id})
-            return
+            return user
         }
         throw new Error('No free computers available')
     }

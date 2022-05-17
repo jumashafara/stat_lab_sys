@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/output.css">
-    <script src="https://kit.fontawesome.com/42e0e8b23e.js" crossorigin="anonymous"></script>
 </head>
 <body class="flex flex-col justify-between space-y-10 font-thin container bg-gray-100">
     <!-- Navigation bar -->
@@ -18,21 +17,57 @@
             </div>
             <!-- logo -->
             <div class="p-2 text-xl">
-                DI Labs
+                <a href="/"><span>Di Labs</span></a>
             </div>
             <div class="hidden md:flex space-x-6 font-medium">
-                <a href="" class="text-green-600 md:text-lg">Book</a>
+                <a href="/computer/book" class="text-green-600 md:text-lg">Book</a>
                 <a href="" class="text-green-600 md:text-lg">About</a>
                 <a href="" class="text-green-600 md:text-lg">Support</a>
             </div>
             <!-- button -->
+            <div class="if-logged">
+                <span class="user-info"></span>
+                <a href="/account/logout" class="logout bg-transparent text-red-700 md:text-lg ml-2">
+                    Log Out
+                </a>
+            </div>
             <div
-            class="">  
-                <a href="/login" class="bg-transparent text-red-700 md:text-lg p-3 ml-0 rounded-l-full px-3">
+            class="if-not-logged">  
+                <a href="/account/login" class="bg-transparent text-red-700 md:text-lg ml-2">
                     Log In
                 </a>
-                <a href="/signup" class="btn btn-danger ml-0 px-3 p-2">Sign Up</a>
+                <a href="/account/signup" class="btn btn-danger">Sign Up</a>
             </div>
-            
         </div>
     </Nav>
+
+    <script>
+        const logout = document.querySelector('.logout')
+        const user_info = document.querySelector('.user-info')
+        const if_logged = document.querySelector('.if-logged')
+        const if_not_logged = document.querySelector('.if-not-logged')
+
+        const name = localStorage.getItem('name')
+
+        if(name){
+            user_info.innerHTML = `logged in as ${name}`
+            if_not_logged.classList.add('hidden')
+            // if_logged.display = 'block'
+        }else{
+            if_logged.classList.add('hidden')
+            // if_not_logged.display = 'block'
+        }
+        
+        logout.addEventListener('click', async (e) => {
+            e.preventDefault()
+
+        try{
+            await fetch('/account/logout');
+            localStorage.removeItem('name')
+            location.assign("/")
+        }catch(error){
+           console.log(error)
+        }
+    })
+
+    </script>

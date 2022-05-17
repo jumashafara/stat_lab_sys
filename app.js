@@ -4,7 +4,7 @@ const authRoutes = require('./routes/authRoutes')
 const compRoutes = require('./routes/compRoutes')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
-const {requireAuth, checkUser } = require('./middleware/authMiddleware')
+const {requireAuth} = require('./middleware/authMiddleware')
 
 const app = express()
 
@@ -15,6 +15,9 @@ app.use(express.static(__dirname + '/dist'));
 app.use(cors())
 //get json
 app.use(express.json())
+
+//handle cookies
+app.use(cookieParser())
 
 app.set('view engine', 'ejs')
 
@@ -27,14 +30,14 @@ mongoose.connect(localDBUrl, {
     .then(result => app.listen(port, () => console.log("Server running at port 5000")))
     .catch(error => console.log(error))
 
-//app.get('*', checkUser)
-
-app.get('/', (req, res) =>{
+app.get('/', requireAuth, (req, res) =>{
     res.render('home')
 })
-app.get('/boo', requireAuth, )
-
 
 app.use('/account/', authRoutes)
 
-app.use('/computer/', compRoutes)
+app.use('/computer/',requireAuth, compRoutes)
+
+app.get('/*', (req, res) => {
+    res.render('notfound')
+})

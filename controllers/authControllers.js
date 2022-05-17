@@ -22,7 +22,7 @@ const handleErrors = (err) => {
 
     //duplicate error
     if(err.code === 11000){
-        user_errors.email = 'That email is already registerd'
+        user_errors.email = 'That email or username is already registerd'
     }
 
     //validation user_errors
@@ -53,19 +53,18 @@ module.exports.login_post = async (req, res) => {
     try{
         const user = await User.login(email, password)
         const token = createToken(user._id)
-        res.cookie('jwt', token, {httpOnly: true, maxAge: max_age*1000})
-        res.status(200).json({user: user._id, name: user.name, email: user.email, computer_id: user.computer_id})
-
+        res.cookie('jwt', token, {httpOnly: true, maxAge: max_age*1000, sameSite: false})
+        .status(200).json(user)
     }catch(err){
         const user_errors = handleErrors(err)
+        //res.status(401).json({user_errors: user_errors})
         console.log(user_errors)
-        res.status(400).json({user_errors: user_errors})
     }
 }
 
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', {maxAge: 1})
-    res.redirect('/')
+    res.redirect('/account/login')
 }
 
 //SIGN UP SECTION
@@ -82,12 +81,14 @@ module.exports.signup_post = async (req, res) => {
         const user = await User.create({name, email, password})
         const token = createToken(user._id)
         res.cookie('jwt', token, {httpOnly: true, maxAge: max_age*1000})
-        res.status(200).json({user: user._id})
+        res.status(200).json({user})
+        
     }
     catch(err){
         const user_errors = handleErrors(err)
         res.status(400).json({user_errors})
     }
+
 
 }
 
@@ -131,6 +132,6 @@ const updater = async() => {
     })
 }
 
-setInterval(()=> {
-    updater()
-}, 1000)
+// setInterval(()=> {
+//     updater()
+// }, 1000)

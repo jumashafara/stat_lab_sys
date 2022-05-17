@@ -12,4 +12,7 @@
     @apply bg-green-600  hover:ring-green-400 hover:bg-green-800
             
 }
+.alert {
+    @apply mt-3 p-2 rounded-md bg-red-200 text-red-800 ring-1 ring-red-400 ring-offset-2 font-normal
+}
 @tailwind utilities;

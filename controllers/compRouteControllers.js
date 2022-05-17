@@ -30,10 +30,10 @@ module.exports.book_post = async (req, res) => {
     const {email} = req.body
     try {
         const user = await User.handleBooking(email)
-        res.status(200)
+        res.status(200).json({user: user})
     }catch(err){
         const computer_errors = handleErrors(err)
-        res.status(400).json({computer_errors: computer_errors})
+        res.status(400).json({computer_errors})
     }
 }
 
