@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const authRoutes = require('./routes/authRoutes')
 const compRoutes = require('./routes/compRoutes')
+const systemRoutes = require('./routes/systemRoutes')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const {requireAuth} = require('./middleware/authMiddleware')
@@ -24,7 +25,7 @@ app.set('view engine', 'ejs')
 const localDBUrl = "mongodb://127.0.0.1:27017/stat_lab_sys"
 const remoteDBUrl = "mongodb+srv://shafara:chappie@cluster0.d232b.mongodb.net/stat_lab_sys?retryWrites=true&w=majority"
 
-mongoose.connect(remoteDBUrl, {
+mongoose.connect(localDBUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true})
     .then(result => app.listen(port))
@@ -37,6 +38,8 @@ app.get('/', requireAuth, (req, res) =>{
 app.use('/account/', authRoutes)
 
 app.use('/computer/',requireAuth, compRoutes)
+
+app.use('/system/', systemRoutes)
 
 app.get('/*', (req, res) => {
     res.render('notfound')
