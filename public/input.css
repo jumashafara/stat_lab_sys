@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 .btn {
-    @apply text-white rounded-md p-2 first-letter:first-line:hover:translate-y-0.5
-            hover:ring-2 hover:ring-offset-1 outline-none;
+    @apply text-white rounded-md py-2 first-letter:first-line:hover:translate-y-0.5
+            hover:ring-2 hover:ring-offset-1 outline-none px-4 font-semibold;
 }
 
 .btn-danger {
@@ -13,7 +13,7 @@
             
 }
 .btn-secondary {
-    @apply bg-gray-300  hover:ring-green-400 hover:bg-green-800
+    @apply bg-gray-300  hover:ring-gray-300 hover:bg-gray-200
             
 }
 .alert {

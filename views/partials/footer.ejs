@@ -1,3 +1,32 @@
+    <footer class="bg-gray-500 text-gray-100 flex flex-col md:flex-row">
+        <div>
+            <p class="user-info2 p-2"></p>
+        </div>
+        <ul class="m-auto">
+            <li>
+                <a href="/" class="md:text-lg">Home</a>
+            </li>
+            <li>
+                <a href="/computer/book" class="text-lg">Book</a>
+            </li>
+            <li>
+                <a href="/system/about" class="text-lg">About</a>
+            </li>
+            <li>
+                <a href="/system/support" class="text-lg">Support</a>
+            </li>
+            
+        </ul>
+    </footer>
+    </div>
+    <script>
+       const user_info2 = document.querySelector('.user-info2')
 
+       if(name !== 'undefined'){
+            user_info2.innerHTML = `Logged in as ${name}`
+           // if_not_logged.classList.add('hidden')
+            // if_logged.display = 'block'
+        }
+    </script>
 </body>
 </html>
