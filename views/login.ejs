@@ -95,10 +95,8 @@
     
         const data = await res.json()
 
-        localStorage.setItem('name', data['name'])
-
-       // user_info.innerHTML = `logged in as ${data['name']}`
         //console.log(data)
+        localStorage.setItem('name', data.user.name)
         
         if(data.user_errors){
             const error_message = handleErrors(data.user_errors)
@@ -111,7 +109,6 @@
         }
 
         if(data){
-            //console.log(data)
             location.assign('/')
         }
     }

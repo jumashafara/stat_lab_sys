@@ -25,7 +25,7 @@ app.set('view engine', 'ejs')
 const localDBUrl = "mongodb://127.0.0.1:27017/stat_lab_sys"
 const remoteDBUrl = "mongodb+srv://shafara:chappie@cluster0.d232b.mongodb.net/stat_lab_sys?retryWrites=true&w=majority"
 
-mongoose.connect(remoteDBUrl, {
+mongoose.connect(localDBUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true})
     .then(result => app.listen(port))

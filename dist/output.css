@@ -860,9 +860,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.5rem;
 }
 
+.p-10 {
+  padding: 2.5rem;
+}
+
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .text-center {
@@ -903,6 +912,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-bold {
@@ -1092,6 +1106,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .md\:h-20 {
     height: 5rem;
+  }
+
+  .md\:h-1\/2 {
+    height: 50%;
   }
 
   .md\:w-1\/2 {
