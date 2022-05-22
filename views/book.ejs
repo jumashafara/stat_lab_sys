@@ -86,6 +86,10 @@
         })
 
         const data = await res.json()
+
+        if(data.user.computer_id != ''){
+            alert(`Your computer id ${data.user.computer_id}`) 
+        }
         
         if(data.computer_errors){
             const error_message = handleErrors(data.computer_errors)
