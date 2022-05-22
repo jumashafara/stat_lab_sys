@@ -9,6 +9,11 @@ Change user info (even delete)
 Booking a pc
 Change computer info (even delete)
 
+## What i learnt (mastered)
+How to make CRUD operations to mongoDB
+How to render dynamic content using ejs template engine
+User authentication using javascript web token (jwt)
+Front end styling using TailwindCSS
 
 
 ## Technology used
