@@ -5,6 +5,10 @@ It was assigned to me as part of the systems analysis course requirement project
 
 ## Main Features
 User authentication
+Change user info (even delete)
+Booking a pc
+Change computer info (even delete)
+
 
 
 ## Technology used
