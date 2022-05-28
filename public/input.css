@@ -17,6 +17,14 @@
             
 }
 .alert {
-    @apply mt-3 p-2 rounded-md bg-red-200 text-red-800 ring-1 ring-red-400 ring-offset-2 font-normal
+    @apply mt-3 p-2 rounded-md ring-offset-2 font-normal
+}
+
+.alert-success {
+    @apply bg-green-200 text-green-800 ring-1 ring-green-400
+}
+
+.alert-danger{
+    @apply bg-red-200 text-red-800 ring-1 ring-red-400
 }
 @tailwind utilities;

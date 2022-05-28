@@ -99,7 +99,10 @@
     
         const data = await res.json()
 
-        localStorage.setItem('name', data.user.name)
+        if(data.user){
+            //store data in the localstorage
+            localStorage.setItem('name', data.user.name)
+        }
         
         if(data.user_errors){
             const error_message = handleErrors(data.user_errors)

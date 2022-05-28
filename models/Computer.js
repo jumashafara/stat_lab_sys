@@ -5,7 +5,18 @@ const computerSchema = new mongoose.Schema({
 
     name: {
         type: String,
+        unique: true,
         required: [true, "A computer must have a name"]
+    },
+    details:{
+        type:String,
+        required: true,
+        default: 'Not available'
+    },
+    date_added: {
+        type: Date,
+        required: true,
+        default: Date.now()
     },
     booker_id: {
         type: String,

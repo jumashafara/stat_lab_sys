@@ -19,6 +19,11 @@ const handleErrors = (err) => {
         computer_errors.user_status = "User already booked a computer"
     }
 
+     //duplicate error
+     if(err.code === 11000){
+        computer_errors.name = 'That computer name is already added'
+    }
+
     return computer_errors
 }
 
@@ -30,18 +35,23 @@ module.exports.book_post = async (req, res) => {
     const {email} = req.body
     try {
         const user = await User.handleBooking(email)
-        res.status(200).json({user: user})
+        const booker_detail = await User.findOne({email})
+        res.status(200).json({user: booker_detail})
     }catch(err){
         const computer_errors = handleErrors(err)
-        res.status(400).json({computer_errors})
+        res.status(400).json({computer_errors: computer_errors})
     }
 }
 
-module.exports.computer_post = async (req, res) => {
-    const {name} = req.body
+module.exports.add_computer_get = async (req, res) => {
+    res.render('addComp')
+}
+
+module.exports.add_computer_post = async (req, res) => {
+    const {name, details} = req.body
     try {
-        const computer = await Computer.create({name})
-        res.status(200).json({computer: name})
+        const computer = await Computer.create({name, details})
+        res.status(200).json({computer: computer})
     }catch(err){
         const computer_errors = handleErrors(err)
         res.status(400).json({computer_errors: computer_errors})
@@ -62,15 +72,15 @@ module.exports.update_put = async (req, res) => {
 }
 
 module.exports.delete_computer = async (req, res) => {
-    // const name = req.body
+    const name = req.body
 
-    // try{
-    //     await Computer.findOneAndRemove({name})
-    //     res.status(200).json({deleted_computer: name})
-    // }catch(err){
-    //     res.status(400)
-    //     console.log(err.message)
-    // }
+    try{
+        await Computer.findOneAndRemove({name})
+        res.status(200).json({deleted_computer: name})
+    }catch(err){
+        res.status(400)
+        console.log(err.message)
+    }
 }
 
 

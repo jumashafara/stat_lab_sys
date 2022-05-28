@@ -95,20 +95,25 @@
     
         const data = await res.json()
 
-        //console.log(data)
-        localStorage.setItem('name', data.user.name)
+        if(data.user){
+            //store data in the localstorage
+            localStorage.setItem('name', data.user.name)
+        }
         
+            console.log('next step')
+
         if(data.user_errors){
             const error_message = handleErrors(data.user_errors)
 
             error_container.innerHTML = `<p class = "alert ">${error_message}</p>`
 
+            
             setTimeout(() => {
                 error_container.innerHTML = ``
             }, 3000);
         }
 
-        if(data){
+        if(data.user){
             location.assign('/')
         }
     }
