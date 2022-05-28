@@ -75,10 +75,14 @@ module.exports.delete_computer = async (req, res) => {
     const name = req.body
 
     try{
-        await Computer.findOneAndRemove({name})
+        await Computer.findOneAndRemove({name: name})
         res.status(200).json({deleted_computer: name})
     }catch(err){
-        res.status(400)
+        res.status(400).json(
+            {
+                error_message: 'cannot perform operation now'
+            }
+        )
         console.log(err.message)
     }
 }

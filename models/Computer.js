@@ -23,7 +23,9 @@ const computerSchema = new mongoose.Schema({
         default: ''
     }
 
-})
+},
+
+);
 
 computerSchema.statics.handleUpdate = async function(old_name, new_name){
     // const computer = await this.findOne({name: old_name})
