@@ -4,6 +4,7 @@ const { handle } = require("express/lib/application")
 //test
 const path = require('path')
 const Computer = require("../models/Computer")
+const { update } = require("../models/Computer")
 
 const handleErrors = (err) => {
     console.log(err.message, err.code)
@@ -105,33 +106,28 @@ module.exports.update_put = async (req, res) => {
     }
 }
 
-//Expire user booking after 2 days
-Date.prototype.addDays = function (days) {
-    let date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  }
-
 const updater = async() => {
     const users = await User.find()
+    const computers = await Computer.find()
 
     users.forEach(async (user) => {
-        const open_day = user.booking_date
+        const date = new Date()
+        const current_time = date.getHours()
+        const end_time1 = new Date(date.setHours(23))
+        const end_time = end_time1.getHours()
 
-        let current_date = new Date(`${new Date().toISOString()}`)
-
-       // let due_day = open_day
-        let due_day = new Date("2022-05-02T09:52:00.000Z")
-
-      //  due_day = open_day.addDays(2)
-
-        if(current_date > due_day){
-            await User.updateOne({_id: user._id}, {computer_id: ''})
-            await Computer.updateOne({booker_id: user._id}, {booker_id: ''})
+        if(current_time >= end_time){
+            users.forEach(async (user) => {
+                await User.updateOne({_id: user._id}, {computer_id: '', booking_date: null})
+            })
+            computers.forEach(async (computer) => {
+                await Computer.updateOne({_id: computer._id}, {booker_id: ''})
+            })
+            console.log(current_time, end_time)
         }
     })
 }
 
-// setInterval(()=> {
-//     updater()
-// }, 1000)
+setInterval(()=> {
+    updater()
+}, 1000)
