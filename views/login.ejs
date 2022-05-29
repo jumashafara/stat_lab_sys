@@ -105,7 +105,7 @@
         if(data.user_errors){
             const error_message = handleErrors(data.user_errors)
 
-            error_container.innerHTML = `<p class = "alert ">${error_message}</p>`
+            error_container.innerHTML = `<p class = "alert alert-danger">${error_message}</p>`
 
             
             setTimeout(() => {
