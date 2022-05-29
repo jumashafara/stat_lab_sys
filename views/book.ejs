@@ -90,12 +90,6 @@ form.addEventListener('submit', async (e) => {
     })
 
     const data = await res.json()
-
-    // if(data.user.computer_id != ''){
-    //     alert(`Your computer id ${data.user.computer_id}`) 
-    // }
-
-    console.log(data.user)
     
     if(data.computer_errors){
 
@@ -112,7 +106,7 @@ form.addEventListener('submit', async (e) => {
 
     }
     catch(err){
-        //console.log(error_container.innerHTML)
+        
     }
     
 

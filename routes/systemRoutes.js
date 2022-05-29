@@ -8,4 +8,6 @@ route.get('/about', systemController.about_get)
 
 route.get('/support', systemController.support_get)
 
+route.get('/report', systemController.report_get)
+
 module.exports = route

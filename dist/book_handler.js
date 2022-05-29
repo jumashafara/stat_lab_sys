@@ -44,7 +44,7 @@ const form = document.querySelector('.booking-form')
         //     alert(`Your computer id ${data.user.computer_id}`) 
         // }
 
-        console.log(data.user)
+        
         
         if(data.computer_errors){
 
@@ -61,8 +61,7 @@ const form = document.querySelector('.booking-form')
 
         }
         catch(err){
-            //console.log(error_container.innerHTML)
+            
         }
-        
 
     })

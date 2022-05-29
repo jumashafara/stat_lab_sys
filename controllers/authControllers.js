@@ -123,7 +123,7 @@ const updater = async() => {
             computers.forEach(async (computer) => {
                 await Computer.updateOne({_id: computer._id}, {booker_id: ''})
             })
-            console.log(current_time, end_time)
+            
         }
     })
 }
