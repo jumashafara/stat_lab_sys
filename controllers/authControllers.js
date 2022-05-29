@@ -1,8 +1,5 @@
 const User = require("../models/User")
 const jwt = require('jsonwebtoken')
-const { handle } = require("express/lib/application")
-//test
-const path = require('path')
 const Computer = require("../models/Computer")
 const { update } = require("../models/Computer")
 

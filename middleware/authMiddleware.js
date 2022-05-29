@@ -7,7 +7,6 @@ const requireAuth = (req, res, next) => {
     if(token){
         jwt.verify(token, 'chappie', async (err, decodedtoken) => {
             if(err){
-                //res.send(err.message)
                 res.redirect('/account/login')
             }else {
                 let user = await User.findById(decodedtoken.id)

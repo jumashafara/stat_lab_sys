@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const computerSchema = new mongoose.Schema({
 
     name: {
@@ -28,8 +27,6 @@ const computerSchema = new mongoose.Schema({
 );
 
 computerSchema.statics.handleUpdate = async function(old_name, new_name){
-    // const computer = await this.findOne({name: old_name})
-    // if(computer){
         await this.updateOne({name: old_name}, {name: new_name}) 
 }
 

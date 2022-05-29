@@ -39,12 +39,6 @@ const form = document.querySelector('.booking-form')
         })
 
         const data = await res.json()
-
-        // if(data.user.computer_id != ''){
-        //     alert(`Your computer id ${data.user.computer_id}`) 
-        // }
-
-        
         
         if(data.computer_errors){
 

@@ -1,9 +1,6 @@
 const User = require("../models/User")
 const Computer = require('../models/Computer')
 
-const path = require('path')
-const { render } = require("express/lib/response")
-
 const handleErrors = (err) => {
     console.log(`Error: ${err.message}, Error Code: ${err.code}`)
     const computer_errors = {name: '', na: '', user_status: ''}
@@ -41,10 +38,6 @@ module.exports.book_post = async (req, res) => {
         const computer_errors = handleErrors(err)
         res.status(400).json({computer_errors: computer_errors})
     }
-}
-
-module.exports.add_computer_get = async (req, res) => {
-    res.render('addComp')
 }
 
 module.exports.add_computer_post = async (req, res) => {
