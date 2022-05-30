@@ -1,7 +1,11 @@
 # STAT LAB MANAGEMENT SYSTEM
 ## About
-* This project aims to create a computer laboratory management system for the school of satistics, Makerere University.
+* This project aimed to create a computer laboratory management system for the school of satistics, Makerere University.
 * It was assigned to me as part of the systems analysis course requirement projects
+
+## Testing
+* It is running at http://statlib.herokuapp.com/
+* You can use username **test1** and password **test123** to test the system
 
 ## Main Features
 * User authentication
@@ -14,7 +18,6 @@
 * How to render dynamic content using ejs template engine
 * User authentication using javascript web token (jwt)
 * Front end styling using TailwindCSS
-
 
 ## Technology used
 * Visual Studio Code as code editor
