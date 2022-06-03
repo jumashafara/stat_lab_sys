@@ -4,8 +4,8 @@
 * It was assigned to me as part of the systems analysis course requirement projects
 
 ## Testing
-* It is running at http://statlib.herokuapp.com/
-* You can use username **test1** and password **test123** to test the system
+* It is running [here](http://statlib.herokuapp.com/)
+* You can use email ***test1@gmail*** and password ***test123*** to test the system
 
 ## Main Features
 * User authentication
